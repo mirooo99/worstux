@@ -1,0 +1,736 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+  * { box-sizing: border-box; }
+
+  #hell-site {
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+    background: #00ff00;
+    min-height: 900px;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='28' font-size='28'%3E🖕%3C/text%3E%3C/svg%3E") 0 0, auto;
+  }
+
+  .marquee-bar {
+    background: #ff00ff;
+    color: yellow;
+    font-size: 18px;
+    font-weight: 900;
+    padding: 6px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    border-top: 4px dashed red;
+    border-bottom: 4px dashed red;
+  }
+  .marquee-inner { display: inline-block; animation: marquee 8s linear infinite; }
+  @keyframes marquee { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
+
+  .nav {
+    background: #ff6600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    border-bottom: 6px double #0000ff;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .logo {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ff00ff;
+    text-shadow: 3px 3px 0 blue, -1px -1px 0 red;
+    transform: skewX(-10deg);
+    letter-spacing: -2px;
+  }
+  .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nav-link {
+    background: #ffff00;
+    border: 3px outset #888;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    color: #000080;
+    text-decoration: underline;
+    font-family: 'Comic Neue', cursive;
+  }
+  .nav-link:hover { background: #ff0000; color: white; }
+
+  .hero {
+    background: repeating-linear-gradient(45deg, #ff0000 0px, #ff0000 10px, #0000ff 10px, #0000ff 20px, #ffff00 20px, #ffff00 30px);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: 42px;
+    color: #00ff00;
+    text-shadow: 4px 4px 0 #000, -2px -2px 0 #ff00ff;
+    animation: shake 0.3s infinite;
+    margin: 0 0 8px;
+    line-height: 1;
+    font-family: 'Comic Neue', cursive;
+  }
+  @keyframes shake {
+    0%{transform:rotate(-1deg) scale(1.01)}
+    50%{transform:rotate(1deg) scale(0.99)}
+    100%{transform:rotate(-1deg) scale(1.01)}
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: #ff00ff;
+    background: #000;
+    display: inline-block;
+    padding: 2px 8px;
+    animation: blink 0.5s step-end infinite;
+  }
+  @keyframes blink { 50%{opacity:0} }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr 180px;
+    gap: 0;
+    background: #00ff00;
+    min-height: 500px;
+  }
+
+  .sidebar-left {
+    background: #0000ff;
+    padding: 10px 8px;
+    border-right: 5px solid #ff0000;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sidebar-widget {
+    background: #ffff00;
+    border: 4px ridge #ff00ff;
+    padding: 8px;
+    font-size: 11px;
+    color: #000;
+  }
+  .sidebar-widget h3 { margin: 0 0 4px; font-size: 13px; color: #ff0000; }
+
+  .content-area {
+    background: #00ff00;
+    padding: 12px;
+    position: relative;
+  }
+
+  .cookie-banner {
+    background: #000080;
+    color: #ffff00;
+    border: 4px dashed #ff0000;
+    padding: 12px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    position: relative;
+  }
+  .cookie-banner h3 { margin: 0 0 6px; font-size: 15px; color: #ff6600; }
+  .cookie-buttons { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .btn-accept-all {
+    background: #888;
+    color: #666;
+    border: 3px outset #ccc;
+    padding: 3px 8px;
+    font-size: 9px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-necessary {
+    background: #ff0000;
+    color: #ffff00;
+    border: 3px outset #ff8888;
+    padding: 6px 16px;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    animation: pulse-btn 0.4s infinite;
+  }
+  @keyframes pulse-btn { 0%{transform:scale(1)} 50%{transform:scale(1.08)} 100%{transform:scale(1)} }
+
+  .articles { display: flex; flex-direction: column; gap: 8px; }
+  .article-card {
+    background: #ff6600;
+    border: 4px outset #ffcc88;
+    padding: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+  .article-card:hover { background: #cc0000; }
+  .article-title { font-size: 13px; font-weight: 900; color: #ffff00; margin-bottom: 4px; }
+  .article-meta { font-size: 9px; color: #000; }
+  .read-more {
+    background: #0000ff;
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    font-size: 9px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    font-family: inherit;
+    transform: rotate(-5deg);
+  }
+
+  .captcha-area {
+    background: #ff00ff;
+    border: 6px double #ffff00;
+    padding: 10px;
+    margin-top: 10px;
+    text-align: center;
+  }
+  .captcha-title { font-size: 15px; font-weight: 900; color: #00ff00; margin-bottom: 6px; }
+  .captcha-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin: 8px 0;
+  }
+  .captcha-cell {
+    background: #ffff00;
+    border: 3px solid #000;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.1s;
+  }
+  .captcha-cell.selected { background: #0000ff; }
+  .captcha-cell:hover { background: #ff6600; }
+  .captcha-submit {
+    background: linear-gradient(#ffff00, #ff6600);
+    border: 4px ridge #ff0000;
+    padding: 6px 20px;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transform: rotate(3deg);
+    display: inline-block;
+  }
+
+  .sidebar-right {
+    background: #ff00ff;
+    border-left: 5px solid #00ff00;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .ad-widget {
+    background: #000;
+    color: #00ff00;
+    border: 4px double #ff0000;
+    padding: 8px;
+    font-size: 10px;
+    text-align: center;
+    animation: flash-ad 1s infinite;
+  }
+  @keyframes flash-ad { 0%,100%{background:#000;color:#00ff00} 50%{background:#ff0000;color:#ffff00} }
+
+  .newsletter {
+    background: #ffff00;
+    border: 3px solid #000080;
+    padding: 8px;
+    font-size: 10px;
+  }
+  .newsletter h4 { margin: 0 0 6px; font-size: 12px; color: #ff0000; }
+  .newsletter input {
+    width: 100%;
+    border: 3px inset #888;
+    padding: 3px;
+    font-size: 9px;
+    margin-bottom: 4px;
+    background: #cccccc;
+    font-family: inherit;
+  }
+  .newsletter button {
+    background: #0000ff;
+    color: white;
+    border: 3px outset #8888ff;
+    padding: 3px 6px;
+    font-size: 9px;
+    cursor: pointer;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .popup-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+  .popup {
+    background: #ffff00;
+    border: 8px ridge #ff0000;
+    padding: 20px;
+    max-width: 340px;
+    text-align: center;
+    position: relative;
+  }
+  .popup h2 { font-size: 18px; color: #0000ff; margin: 0 0 8px; animation: shake 0.5s infinite; font-family: inherit; }
+  .popup p { font-size: 11px; color: #000; margin-bottom: 10px; }
+  .popup-close-btn {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    background: #ff0000;
+    color: white;
+    border: 3px solid #000;
+    width: 28px;
+    height: 28px;
+    font-weight: 900;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    border-radius: 50%;
+  }
+  .popup-yes {
+    background: #888;
+    color: #aaa;
+    border: 2px outset #ccc;
+    padding: 3px 10px;
+    font-size: 9px;
+    cursor: not-allowed;
+    font-family: inherit;
+  }
+  .popup-no {
+    background: #ff0000;
+    color: white;
+    border: 4px outset #ff8888;
+    padding: 10px 24px;
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    animation: pulse-btn 0.4s infinite;
+    margin-left: 8px;
+  }
+  .popup-no:hover { background: #00ff00; color: #000; }
+
+  .footer {
+    background: #000080;
+    color: #00ff00;
+    padding: 10px 16px;
+    font-size: 9px;
+    border-top: 6px double #ff00ff;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .footer a { color: #ff6600; font-size: 9px; cursor: pointer; }
+
+  .floating-chat {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    background: #ff0000;
+    color: white;
+    border: 4px ridge #ffff00;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    z-index: 50;
+    animation: float-chat 2s ease-in-out infinite;
+    font-family: inherit;
+  }
+  @keyframes float-chat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+  .music-player {
+    background: #0000ff;
+    color: white;
+    border: 3px inset #000080;
+    padding: 6px 8px;
+    font-size: 10px;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    text-align: center;
+    min-width: 200px;
+  }
+  .music-controls { display: flex; justify-content: center; gap: 6px; margin-top: 4px; }
+  .music-btn {
+    background: #ff00ff;
+    border: 2px outset #ff88ff;
+    color: white;
+    padding: 2px 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .hit-counter {
+    background: #000;
+    color: #00ff00;
+    font-size: 11px;
+    padding: 4px 8px;
+    border: 2px inset #003300;
+    display: inline-block;
+    letter-spacing: 2px;
+    font-family: 'Courier New', monospace;
+  }
+
+  .tooltip-wrong {
+    position: absolute;
+    background: #ff00ff;
+    color: #ffff00;
+    padding: 4px 8px;
+    font-size: 10px;
+    border: 2px solid #0000ff;
+    pointer-events: none;
+    z-index: 200;
+    display: none;
+    font-family: inherit;
+  }
+
+  .spinning-thing {
+    display: inline-block;
+    animation: spin 2s linear infinite;
+    font-size: 28px;
+  }
+  @keyframes spin { 100%{transform:rotate(360deg)} }
+
+  .progress-fake {
+    background: #000;
+    border: 2px inset #333;
+    height: 14px;
+    margin: 6px 0;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    background: #ff0000;
+    height: 100%;
+    width: 0%;
+    animation: fake-load 3s steps(10) infinite;
+  }
+  @keyframes fake-load { 0%{width:0%} 80%{width:95%} 85%{width:30%} 100%{width:0%} }
+
+  .vote-widget {
+    background: #ff6600;
+    border: 4px ridge #ffcc00;
+    padding: 8px;
+    font-size: 11px;
+    color: #000;
+  }
+  .vote-widget h4 { margin: 0 0 6px; color: #0000ff; font-size: 13px; }
+  .vote-option {
+    background: #ffff00;
+    border: 2px outset #888;
+    padding: 3px 8px;
+    margin: 3px 0;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-size: 10px;
+    font-family: inherit;
+  }
+  .vote-option:hover { background: #00ff00; }
+
+  .notification-bar {
+    background: #ff0000;
+    color: white;
+    padding: 5px 12px;
+    font-size: 11px;
+    font-weight: 900;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: notif-flash 1.5s infinite;
+  }
+  @keyframes notif-flash { 50%{background:#0000ff} }
+  .notif-close { cursor: pointer; font-weight: 900; }
+</style>
+
+<div id="hell-site">
+  <div class="tooltip-wrong" id="tooltip">THIS IS NOT WHAT YOU CLICKED</div>
+
+  <div class="notification-bar" id="notif-bar">
+    ⚠️ YOU HAVE 47 UNREAD NOTIFICATIONS! ACT NOW BEFORE IT'S TOO LATE!!!
+    <span class="notif-close" onclick="document.getElementById('notif-bar').style.display='none'">✕ (don't click)</span>
+  </div>
+
+  <div class="marquee-bar">
+    <span class="marquee-inner">
+      🌟 WELCOME TO BESTWEBSITE.GEO.CITIES.COM 🌟 | BEST PRICES GUARANTEED* (*prices not guaranteed) | 
+      CLICK HERE TO WIN A FREE iPHONE!!!! | YOU ARE VISITOR #1,337,042 | 
+      THIS SITE BEST VIEWED IN INTERNET EXPLORER 6.0 AT 800×600 RESOLUTION |
+      💎 WE ARE NUMBER ONE IN QUALITY 💎 | DO NOT LEAVE THIS PAGE OR YOU WILL MISS OUT FOREVER |
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </span>
+  </div>
+
+  <div class="nav">
+    <div class="logo">BestSite™ 2.0 <span class="spinning-thing">⭐</span></div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="showMsg('This goes to the homepage')">Contact Us</button>
+      <button class="nav-link" onclick="showMsg('This is the FAQ')">Buy Now</button>
+      <button class="nav-link" onclick="showMsg('You found the About page! Just kidding')">Home</button>
+      <button class="nav-link" onclick="showMsg('ERROR 404')">Products</button>
+      <button class="nav-link" style="font-size:6px;color:#ff6600" onclick="showMsg('This is actually the logout button')">aBOUT</button>
+      <button class="nav-link" onclick="showMsg('Loading... please wait 3-5 business days')">🔍 Serach</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="music-player">
+      🎵 Now playing: MIDI_SONG_LOOP_8BIT_v3_FINAL_FINAL2.mid
+      <div class="progress-fake"><div class="progress-bar-inner"></div></div>
+      <div class="music-controls">
+        <button class="music-btn" onclick="showMsg('Volume increased to 200%')">🔇</button>
+        <button class="music-btn" onclick="showMsg('Music cannot be paused. Ever.')">⏸</button>
+        <button class="music-btn" onclick="showMsg('Already playing. Nice try.')">▶</button>
+      </div>
+    </div>
+    <div style="margin-top: 60px;">
+      <h1>WELCOM TO THE BEST WEBSITE!!!</h1>
+      <div class="hero-sub">★★★ CLICK ANYWHERE TO WIN PRIZE ★★★</div>
+      <div style="margin-top: 12px;">
+        <button style="background:#ff0000;color:white;border:5px outset #ff8888;padding:12px 30px;font-size:20px;font-weight:900;cursor:pointer;font-family:inherit;transform:rotate(-3deg);display:inline-block" onclick="showMsg('Please disable your ad blocker to continue')">
+          CLICK HERE!!!
+        </button>
+        <button style="background:#cccccc;color:#999;border:2px outset #ddd;padding:2px 4px;font-size:7px;cursor:pointer;font-family:inherit;margin-left:4px" onclick="triggerPopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="sidebar-left">
+      <div class="sidebar-widget">
+        <h3>🌡️ Weather</h3>
+        <div style="font-size:10px">Loading weather...<br>
+          <div class="progress-fake"><div class="progress-bar-inner"></div></div>
+          <span style="color:#ff0000">Error: weather not found</span><br>
+          <span style="font-size:9px">Try refreshing 47 times</span>
+        </div>
+      </div>
+      <div class="sidebar-widget">
+        <h3>🔥 HOT LINKS</h3>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <a style="color:#ff0000;font-size:10px;cursor:pointer;text-decoration:underline" onclick="showMsg('This link is broken')">Click here for deals</a>
+          <a style="color:#0000ff;font-size:10px;cursor:pointer;text-decoration:underline" onclick="showMsg('Page moved. New URL: (unknown)')">Free stuff!!!</a>
+          <a style="color:#ff00ff;font-size:10px;cursor:pointer;text-decoration:underline" onclick="showMsg('This opens in 12 new tabs')">Our best offer</a>
+          <a style="color:#008800;font-size:10px;cursor:pointer;text-decoration:underline" onclick="showMsg('Please log in to continue. No, create an account first.')">Members only</a>
+        </div>
+      </div>
+      <div class="vote-widget">
+        <h4>📊 DAILY POLL!!!</h4>
+        <div style="font-size:10px;margin-bottom:6px">Which is better?</div>
+        <button class="vote-option" onclick="showMsg('Thanks! Your vote for OPTION B has been recorded.')">Option A</button>
+        <button class="vote-option" onclick="showMsg('Please verify your email to vote.')">Option B</button>
+        <button class="vote-option" onclick="showMsg('This option has been removed by admin.')">Option C</button>
+        <button class="vote-option" onclick="showMsg('404: Option not found')">Option D (recommended)</button>
+      </div>
+      <div style="text-align:center;padding:8px 0">
+        <div style="font-size:9px;color:#ffff00;margin-bottom:4px">YOU ARE VISITOR:</div>
+        <div class="hit-counter" id="counter">001337042</div>
+      </div>
+    </div>
+
+    <div class="content-area">
+      <div class="cookie-banner">
+        <h3>🍪 We use cookies (and also cake, pie, and brownies)</h3>
+        <div style="font-size:10px;line-height:1.4">
+          We use 847 types of cookies, 23 tracking pixels, and 4 surveillance satellites to improve your experience. 
+          By continuing to exist, you agree to our <a style="color:#ff6600;cursor:pointer" onclick="showMsg('Terms: you agree to everything.')">Terms</a>, 
+          <a style="color:#ff6600;cursor:pointer" onclick="showMsg('Privacy policy: we sell everything.')">Privacy Policy</a>, 
+          <a style="color:#ff6600;cursor:pointer" onclick="showMsg('Cookie policy not available in your region')">Cookie Policy</a>,
+          our <a style="color:#ff6600;cursor:pointer">Sub-Policy</a>, our <a style="color:#ff6600;cursor:pointer">Meta-Policy</a>, and our <a style="color:#ff6600;cursor:pointer">Policy about Policies</a>.
+        </div>
+        <div class="cookie-buttons">
+          <button class="btn-accept-all" title="This is the reject button">Accept All ✓</button>
+          <button class="btn-necessary" onclick="triggerPopup()">Reject Unnecessary (REQUIRED)</button>
+          <button class="btn-accept-all" onclick="showMsg('Preferences saved! (They were not saved.)')">Manage Preferences</button>
+        </div>
+      </div>
+
+      <div class="articles">
+        <div class="article-card">
+          <div class="article-title">🚨 BREAKING: Local Man Discovers ONE WEIRD TRICK</div>
+          <div class="article-meta">Posted: Yesterday | Author: Admin | 47,293 views | Category: News/Sports/Finance/Recipes</div>
+          <div style="font-size:10px;color:#ffff00;margin-top:4px">
+            Doctors hate him! Click to find out what happened next after you subscribe and verify your phone number and complete a short 47-question survey...
+          </div>
+          <button class="read-more" onclick="showMsg('Article is behind a paywall. Cost: $9.99/month. Also your soul.')">Read More »</button>
+        </div>
+        <div class="article-card" style="background:#8800cc">
+          <div class="article-title">⚡ TOP 10 LISTICLE (You Won't BELIEVE #7!!!)</div>
+          <div class="article-meta">Posted: 3 minutes ago | Author: SEO_BOT_v4 | Views: Loading...</div>
+          <div style="font-size:10px;color:#ffff00;margin-top:4px">
+            Number 1. A thing. Number 2. Another thing. [Article continues on 47 separate pages, each with 3 unskippable ads]
+          </div>
+          <button class="read-more" style="transform:rotate(5deg);left:4px;right:auto" onclick="showMsg('Loading page 1 of 47...')">Next Page ▶</button>
+        </div>
+        <div class="article-card" style="background:#005500">
+          <div class="article-title">💰 CONGRATULATIONS!!! You Have Been Selected!!!</div>
+          <div class="article-meta">This is definitely not spam | Very official | Please respond urgently</div>
+          <div style="font-size:10px;color:#00ff00;margin-top:4px">
+            A Nigerian prince has left you $47,000,000. To claim, please enter your bank details, mother's maiden name, and blood type below.
+          </div>
+          <button class="read-more" style="background:#00ff00;color:#000;bottom:auto;top:4px" onclick="showMsg('Transferring funds... please wait 5-10 business years.')">CLAIM NOW</button>
+        </div>
+      </div>
+
+      <div class="captcha-area">
+        <div class="captcha-title">🤖 PROVE YOU ARE NOT A ROBOT (attempt 1 of ∞)</div>
+        <div style="font-size:11px;color:#ffff00;margin-bottom:4px">Select all images containing: <strong style="color:#00ff00;font-size:16px">traffic lights (but not the poles) (but also the poles) (but only at night) (in Europe)</strong></div>
+        <div class="captcha-grid" id="captcha-grid">
+          <button class="captcha-cell" onclick="toggleCell(this)">🚗</button>
+          <button class="captcha-cell" onclick="toggleCell(this)">🚦</button>
+          <button class="captcha-cell" onclick="toggleCell(this)">🌮</button>
+          <button class="captcha-cell" onclick="toggleCell(this)">🚦</button>
+          <button class="captcha-cell" onclick="toggleCell(this)">🚗</button>
+          <button class="captcha-cell" onclick="toggleCell(this)">🐈</button>
+          <button class="captcha-cell" onclick="toggleCell(this)">🚦</button>
+          <button class="captcha-cell" onclick="toggleCell(this)">🦆</button>
+        </div>
+        <button class="captcha-submit" onclick="showMsg('WRONG. The images refreshed. Please try again. (attempt 2 of ∞)')">Verify ✓</button>
+      </div>
+    </div>
+
+    <div class="sidebar-right">
+      <div class="ad-widget">
+        ⚡ ADVERTISEMENT ⚡<br>
+        <span style="font-size:16px;font-weight:900">HOT SINGLES<br>IN YOUR AREA</span><br>
+        <span style="font-size:9px">(This ad cannot be closed)<br>You have been pre-approved!</span><br>
+        <button style="background:#ff0000;color:white;border:2px outset red;font-size:10px;cursor:pointer;font-family:inherit;margin-top:4px" onclick="showMsg('Ad expanded to full screen.')">✕ Close Ad</button>
+      </div>
+
+      <div class="newsletter">
+        <h4>📧 Subscribe to Our Newsletter!!!</h4>
+        <div style="font-size:9px;margin-bottom:4px">Get EXCLUSIVE deals (we send 47 emails/day)</div>
+        <input type="text" placeholder="Your email (required)" id="email-input" />
+        <input type="text" placeholder="Confirm email" />
+        <input type="text" placeholder="Confirm confirmation of email" />
+        <input type="text" placeholder="Your phone (required)" />
+        <input type="text" placeholder="Mother's maiden name (security)" />
+        <button onclick="showMsg('Subscribed! Also you are now subscribed to 16 partner newsletters.')">
+          Subscribe (unsubscribe not available)
+        </button>
+      </div>
+
+      <div class="ad-widget" style="animation-delay: 0.5s;">
+        🎰 SPIN TO WIN!!!<br>
+        <div style="font-size:28px;animation:spin 0.5s linear infinite;display:inline-block">🎰</div><br>
+        <span style="font-size:9px">You always win*<br>*Terms apply. Winner pays shipping.</span><br>
+        <button style="background:#ffff00;color:#000;border:2px outset #ffcc00;font-size:11px;font-weight:900;cursor:pointer;font-family:inherit;margin-top:4px" onclick="showMsg('Spinning... You won! Please pay $47 processing fee to claim.')">SPIN FREE!</button>
+      </div>
+
+      <div style="background:#ffff00;border:3px ridge #ff0000;padding:8px;font-size:10px">
+        <div style="font-weight:900;color:#ff0000;margin-bottom:4px">⏰ LIMITED TIME OFFER!!!</div>
+        <div style="font-size:22px;font-weight:900;color:#0000ff;text-align:center" id="countdown">47:00</div>
+        <div style="font-size:9px;color:#000;text-align:center">(timer resets when it reaches 0)</div>
+        <button style="background:#ff0000;color:white;border:3px outset #ff8888;width:100%;padding:4px;font-size:11px;font-weight:900;cursor:pointer;font-family:inherit;margin-top:6px" onclick="showMsg('Offer expired. New offer: same thing but $10 more.')">CLAIM OFFER</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating-chat" onclick="showMsg('Support agent is away. Expected response time: 6-8 business months.')">
+    💬 CHAT WITH US!<br><span style="font-size:9px">(We are online*)</span>
+  </div>
+
+  <div class="footer">
+    <span>© 1997-2026 BestSite™ GmbH LLC Inc Corp Ltd | All rights reserved and also some rights that don't exist</span>
+    <span>|</span>
+    <a onclick="showMsg('Privacy Policy: We have none.')">Privacy</a>
+    <a onclick="showMsg('Terms: You agreed to everything by reading this.')">Terms</a>
+    <a onclick="showMsg('Accessibility statement: This site fails all WCAG criteria.')">Accessibility</a>
+    <a onclick="showMsg('Sitemap is 847 pages long.')">Sitemap</a>
+    <a onclick="showMsg('404: Contact form not found.')">Contact</a>
+    <span style="margin-left:auto;font-size:8px;color:#8888ff">Best viewed in IE6 | 800×600 | Enable Flash | Disable sanity</span>
+  </div>
+
+  <div class="popup-overlay" id="popup-overlay" style="display:none">
+    <div class="popup">
+      <button class="popup-close-btn" onclick="showMsg('Close button moved. Try the other corner.')">✕</button>
+      <h2>🎉 WAIT! DON'T LEAVE! 🎉</h2>
+      <p>Are you sure you want to miss out on our INCREDIBLE OFFER that expires in exactly 47 seconds and will never ever come back ever?</p>
+      <div style="margin: 10px 0;font-size:22px;font-weight:900;color:#ff0000" id="popup-timer">0:47</div>
+      <div>
+        <button class="popup-yes" title="Yes button is disabled on purpose" disabled>Yes please!</button>
+        <button class="popup-no" onclick="showMsg('Thanks for declining! You have been subscribed to our mailing list.')">No thanks, I hate saving money</button>
+      </div>
+      <div style="font-size:8px;color:#888;margin-top:8px">By clicking anything you agree to our terms. The X button is decorative only.</div>
+    </div>
+  </div>
+
+  <div style="display:none" id="msg-toast" class="popup-overlay">
+    <div class="popup" style="max-width:280px">
+      <h2 style="font-size:15px;animation:none" id="msg-text">Message</h2>
+      <button class="popup-no" style="font-size:13px;padding:6px 16px;animation:none" onclick="document.getElementById('msg-toast').style.display='none'">OK (this might work)</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let counter = 1337042;
+let popupTimer = 47;
+let countdown = 47 * 60;
+let popupInterval;
+
+function showMsg(msg) {
+  document.getElementById('msg-text').textContent = msg;
+  document.getElementById('msg-toast').style.display = 'flex';
+}
+
+function triggerPopup() {
+  document.getElementById('popup-overlay').style.display = 'flex';
+  popupTimer = 47;
+  clearInterval(popupInterval);
+  popupInterval = setInterval(() => {
+    popupTimer--;
+    document.getElementById('popup-timer').textContent = '0:' + String(popupTimer).padStart(2,'0');
+    if (popupTimer <= 0) {
+      popupTimer = 47;
+    }
+  }, 1000);
+}
+
+function toggleCell(el) {
+  el.classList.toggle('selected');
+}
+
+setInterval(() => {
+  counter += Math.floor(Math.random() * 5) + 1;
+  document.getElementById('counter').textContent = String(counter).padStart(9, '0');
+}, 800);
+
+setInterval(() => {
+  countdown--;
+  if (countdown <= 0) countdown = 47 * 60;
+  const m = Math.floor(countdown / 60);
+  const s = countdown % 60;
+  const el = document.getElementById('countdown');
+  if (el) el.textContent = m + ':' + String(s).padStart(2,'0');
+}, 1000);
+
+setTimeout(() => triggerPopup(), 1800);
+
+document.getElementById('hell-site').addEventListener('click', (e) => {
+  const el = document.getElementById('tooltip');
+  el.style.display = 'block';
+  el.style.left = (e.offsetX + 10) + 'px';
+  el.style.top = (e.offsetY + 10) + 'px';
+  setTimeout(() => el.style.display = 'none', 900);
+});
+</script>
