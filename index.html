@@ -834,20 +834,20 @@
       <button class="popup-close-btn" onclick="showMsg('Close button moved. Try the other corner.')">✕</button>
       <button class="runaway-btn" id="runaway-btn" style="bottom:10px;right:10px">✕ Close popup</button>
       <h2>🎉 WAIT! DON'T LEAVE! 🎉</h2>
-      <p>Are you sure you want to miss out on our INCREDIBLE OFFER that expires in exactly 67 seconds and will never ever come back ever?</p>
+      <p>R u sure you want to miss out on our INCREDIBLE OFFER that expires in exactly 67 seconds and will never ever come back ever?</p>
       <div style="margin: 10px 0;font-size:22px;font-weight:900;color:#ff0000" id="popup-timer">0:67</div>
       <div>
         <button class="popup-yes" title="Yes button is disabled on purpose" disabled>Yes please!</button>
         <button class="popup-no" onclick="showSecondPopup()">No thanks, I hate saving money</button>
       </div>
-      <div style="font-size:8px;color:#888;margin-top:8px;user-select:none">By clicking anything u agree to our terms. The X button is decorative only(use inspect to remove the poppup(.</div>
+      <div style="font-size:8px;color:#888;margin-top:8px;user-select:none">By clicking anything u agree to our terms. The X button is decorative only(use inspect to remove the poppup(Be careful what u delete HEE HEE).</div>
     </div>
   </div>
 
   <div class="second-popup-overlay" id="second-popup" style="display:none">
     <div class="second-popup">
-      <h2>⚠️ ARE YOU SURE YOU WANT TO CLOSE THE POPUP?</h2>
-      <p>Closing this popup will close the popup. This action cannot be undone (it can). Are you absolutely certain you wish to proceed with the closure of this dialog window at this time?</p>
+      <h2>⚠️ R u SURE YOU WANT TO CLOSE THE POPUP?</h2>
+      <p>Closing this popup will close the popup. This action cannot be undone (it can). R u absolutely certain you wish to proceed with the closure of this dialog window at this time?</p>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
         <button class="popup-yes" disabled style="font-size:9px">Yes, close it</button>
         <button style="background:#0000ff;color:white;border:3px outset #8888ff;padding:6px 14px;font-size:12px;font-weight:900;cursor:pointer;font-family:inherit" onclick="showThirdPopup()">No, keep popup open</button>
@@ -985,7 +985,7 @@ let idleTimer;
 function resetIdle() {
   clearTimeout(idleTimer);
   idleTimer = setTimeout(() => {
-    showMsg('👀 Are you still there? We noticed you stopped clicking. Are you okay? Do you need help? Please click something.');
+    showMsg('👀 R u still there? We noticed you stopped clicking. R u okay? Do you need help? Please click something otherwise we'll call 112.');
   }, 15000);
 }
 document.getElementById('hell-site').addEventListener('click', resetIdle);
@@ -1111,7 +1111,7 @@ angleSlider.oninput = function() {
 submitPhoneBtn.addEventListener("click", function(e) {
   e.stopPropagation();
   var finalNumber = PhoneNumberToDisplay(phoneValue);
-  if (confirm("Are you absolutely sure this is your number?\n" + finalNumber)) {
+  if (confirm("R u absolutely sure this is your number? DONT'T TROLL UR NEGHBORUDS, CUZ WE'LL BOMBARDIRO TS NUMBER!\n" + finalNumber)) {
     realPhoneInput.value = finalNumber;
     phonePopupOverlay.style.display = "none";
   } else {
