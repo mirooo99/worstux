@@ -1068,7 +1068,7 @@ function PhoneNumberToDisplay(val) {
 }
 
 function UpdatePhonePhysics() {
-  if (phonePopupOverlay.style.display !== "flex") return; // Only run physics loop if popup is visible
+  if (phonePopupOverlay.style.display !== "flex") return;
 
   phoneAngle = Number(angleSlider.value);
   phoneValue = Number(slider.value);
@@ -1088,7 +1088,6 @@ function UpdatePhonePhysics() {
   phoneDisplay.innerHTML = PhoneNumberToDisplay(phoneValue);
 }
 
-// Start physics ticker loop
 setInterval(UpdatePhonePhysics, 10);
 
 advancedModeCheckbox.addEventListener("change", function() {
