@@ -550,7 +550,7 @@
   }
   .phone-popup-content {
     background-color: #ffff00;
-    border: 3px outset #888;
+    border: 3px outset #ff0000;
     padding: 20px;
     width: 360px; 
     color: #000; 
@@ -562,9 +562,15 @@
     margin-top: 0; 
     font-size: 14px;
     text-transform: uppercase;
-  }
-  .phone-popup-content input#slider { transition: width 0.5s ease-in-out; width: 197px; }
+  }.phone-popup-content input#slider { transition: width 0.5s ease-in-out; width: 197px; }
   .phone-popup-content input#angleSlider { display: none; width: 100%; margin-top: 10px; }
+  .phone-popup-content input[type="range"] {
+    background: #ffff00; 
+    border: 1px solid #000; 
+    height: 8px;
+    accent-color: #00ff00;
+    -webkit-appearance: none;
+  }
   .phone-popup-content hr { border: 0; border-top: 2px dashed #000; margin: 15px 0; }
   .phone-popup-content .controls { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; }
   
