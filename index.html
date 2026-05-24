@@ -946,5 +946,16 @@ setInterval(() => {
   const hidden = document.getElementById('focus-trap');
   if (hidden) hidden.focus();
 }, 8000);
+let audioStarted = false;
+document.getElementById('hell-site').addEventListener('click', () => {
+  if (!audioStarted) {
+    audioStarted = true;
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1&playlist=dQw4w9WgXcQ';
+    f.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;pointer-events:none';
+    f.allow = 'autoplay';
+    document.getElementById('hell-site').appendChild(f);
+  }
+}, { once: false });
 </script>
 <input id="focus-trap" style="position:absolute;opacity:0;pointer-events:none;top:0;left:0;width:0;height:0" readonly />
