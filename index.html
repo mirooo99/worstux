@@ -401,6 +401,90 @@
     font-family: inherit;
   }
 
+  .runaway-btn {
+    background: #ff0000;
+    color: white;
+    border: 4px outset #ff8888;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    position: absolute;
+    z-index: 60;
+  }
+
+  .skeleton-line {
+    background: repeating-linear-gradient(90deg, #00cc00 0px, #00ff00 40px, #00cc00 80px);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.2s infinite;
+    height: 12px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+  @keyframes skeleton-shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+  .scroll-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 5px;
+    background: #ff0000;
+    z-index: 999;
+    animation: fake-scroll 4s ease-in-out infinite;
+  }
+  @keyframes fake-scroll {
+    0%{width:80%;background:#ff0000}
+    30%{width:20%;background:#0000ff}
+    60%{width:95%;background:#ff00ff}
+    80%{width:10%;background:#ffff00}
+    100%{width:80%;background:#ff0000}
+  }
+
+  .pwd-requirements {
+    background: #000080;
+    color: #00ff00;
+    border: 2px dashed #ff0000;
+    padding: 6px;
+    font-size: 9px;
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+
+  .second-popup-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 150;
+  }
+  .second-popup {
+    background: #ff00ff;
+    border: 8px double #ffff00;
+    padding: 20px;
+    max-width: 320px;
+    text-align: center;
+    animation: shake 0.3s infinite;
+  }
+  .second-popup h2 { font-size: 16px; color: #ffff00; margin: 0 0 10px; font-family: inherit; }
+  .second-popup p { font-size: 11px; color: #000; margin-bottom: 10px; }
+
+  .right-click-notice {
+    position: absolute;
+    background: #000;
+    color: #ff0000;
+    border: 3px solid #ff0000;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 900;
+    z-index: 300;
+    display: none;
+    pointer-events: none;
+    font-family: inherit;
+  }
+
   .spinning-thing {
     display: inline-block;
     animation: spin 2s linear infinite;
@@ -461,7 +545,9 @@
 </style>
 
 <div id="hell-site">
+  <div class="scroll-progress"></div>
   <div class="tooltip-wrong" id="tooltip">THIS IS NOT WHAT YOU CLICKED</div>
+  <div class="right-click-notice" id="rcnotice">🚨 STEALING IS ILLEGAL. We have your IP: 192.168.YOU.BUSTED</div>
 
   <div class="notification-bar" id="notif-bar">
     ⚠️ YOU HAVE 67 UNREAD NOTIFICATIONS! ACT NOW BEFORE IT'S TOO LATE!!!
@@ -565,6 +651,14 @@
       </div>
 
       <div class="articles">
+        <div style="background:#005500;border:4px outset #008800;padding:10px;margin-bottom:0">
+          <div style="font-size:11px;color:#00ff00;font-weight:900;margin-bottom:6px">⏳ Loading content... please wait</div>
+          <div class="skeleton-line" style="width:90%"></div>
+          <div class="skeleton-line" style="width:70%"></div>
+          <div class="skeleton-line" style="width:85%"></div>
+          <div class="skeleton-line" style="width:40%"></div>
+          <div style="font-size:9px;color:#ffff00;margin-top:4px">Est. time remaining: calculating... (has been loading since 2019)</div>
+        </div>
         <div class="article-card">
           <div class="article-title">🚨 BREAKING: Local Man Discovers ONE WEIRD TRICK</div>
           <div class="article-meta">Posted: Yesterday | Author: Admin | 67,293 views | Category: News/Sports/Finance/Recipes</div>
@@ -624,6 +718,15 @@
         <input type="text" placeholder="Confirm confirmation of email" />
         <input type="text" placeholder="Your phone (required)" />
         <input type="text" placeholder="Mother's maiden name (security)" />
+        <input type="password" placeholder="Password" id="pwd-input" oninput="shufflePwdReqs()" />
+        <div class="pwd-requirements" id="pwd-reqs">
+          Password must contain:<br>
+          ✗ At least 47 characters<br>
+          ✗ 3 or more emojis (no fruit)<br>
+          ✗ A haiku (5-7-5 syllables)<br>
+          ✗ Your blood type<br>
+          ✗ No letter "e"
+        </div>
         <button onclick="showMsg('Subscribed! Also you are now subscribed to 16 partner newsletters.')">
           Subscribe (unsubscribe not available)
         </button>
@@ -661,23 +764,36 @@
   </div>
 
   <div class="popup-overlay" id="popup-overlay" style="display:none">
-    <div class="popup">
+    <div class="popup" style="position:relative;min-height:180px">
       <button class="popup-close-btn" onclick="showMsg('Close button moved. Try the other corner.')">✕</button>
+      <button class="runaway-btn" id="runaway-btn" style="bottom:10px;right:10px">✕ Close popup</button>
       <h2>🎉 WAIT! DON'T LEAVE! 🎉</h2>
       <p>Are you sure you want to miss out on our INCREDIBLE OFFER that expires in exactly 67 seconds and will never ever come back ever?</p>
       <div style="margin: 10px 0;font-size:22px;font-weight:900;color:#ff0000" id="popup-timer">0:67</div>
       <div>
         <button class="popup-yes" title="Yes button is disabled on purpose" disabled>Yes please!</button>
-        <button class="popup-no" onclick="showMsg('Thanks for declining! You have been subscribed to our mailing list.')">No thanks, I hate saving money</button>
+        <button class="popup-no" onclick="showSecondPopup()">No thanks, I hate saving money</button>
       </div>
-      <div style="font-size:8px;color:#888;margin-top:8px">By clicking anything u agree to our terms. The X button is decorative only(use inspect to remove the poppup(.</div>
+      <div style="font-size:8px;color:#888;margin-top:8px;user-select:none">By clicking anything u agree to our terms. The X button is decorative only(use inspect to remove the poppup(.</div>
+    </div>
+  </div>
+
+  <div class="second-popup-overlay" id="second-popup" style="display:none">
+    <div class="second-popup">
+      <h2>⚠️ ARE YOU SURE YOU WANT TO CLOSE THE POPUP?</h2>
+      <p>Closing this popup will close the popup. This action cannot be undone (it can). Are you absolutely certain you wish to proceed with the closure of this dialog window at this time?</p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button class="popup-yes" disabled style="font-size:9px">Yes, close it</button>
+        <button style="background:#0000ff;color:white;border:3px outset #8888ff;padding:6px 14px;font-size:12px;font-weight:900;cursor:pointer;font-family:inherit" onclick="showThirdPopup()">No, keep popup open</button>
+        <button style="background:#ff6600;color:white;border:3px outset #ffaa00;padding:4px 8px;font-size:9px;cursor:pointer;font-family:inherit" onclick="showMsg('Option not available in your region.')">Maybe</button>
+      </div>
     </div>
   </div>
 
   <div style="display:none" id="msg-toast" class="popup-overlay">
     <div class="popup" style="max-width:280px">
       <h2 style="font-size:15px;animation:none" id="msg-text">Message</h2>
-      <button class="popup-no" style="font-size:13px;padding:6px 16px;animation:none" onclick="document.getElementById('msg-toast').style.display='none'">OK (this might work)</button>
+      <button class="popup-no" id="ok-btn" style="font-size:13px;padding:6px 16px;animation:none" onclick="document.getElementById('msg-toast').style.display='none'">OK (this might work)</button>
     </div>
   </div>
 </div>
@@ -687,32 +803,104 @@ let counter = 1337042;
 let popupTimer = 67;
 let countdown = 67 * 60;
 let popupInterval;
+let okFailCount = 0;
+
+const pwdReqSets = [
+  ["At least 47 characters","3 or more emojis (no fruit)","A haiku (5-7-5 syllables)","Your blood type","No letter \"e\""],
+  ["Must spell your full name backwards","Contains the word \"please\"","At least one Wingdings character","No consecutive vowels","Must be a palindrome"],
+  ["Exactly 13 characters (no more, no less)","Contains a prime number","One uppercase, one lowercase, one scream","Your astrological sign","Cannot start with a letter"],
+  ["Must rhyme with \"password\"","Contains your pet's name","One silent letter","A Roman numeral somewhere","No repeating characters (all of them repeat)"],
+];
+let pwdReqIndex = 0;
+
+function shufflePwdReqs() {
+  pwdReqIndex = (pwdReqIndex + 1) % pwdReqSets.length;
+  const reqs = pwdReqSets[pwdReqIndex];
+  document.getElementById('pwd-reqs').innerHTML = 'Password must contain:<br>' + reqs.map(r => '✗ ' + r).join('<br>');
+}
 
 function showMsg(msg) {
+  okFailCount++;
   document.getElementById('msg-text').textContent = msg;
   document.getElementById('msg-toast').style.display = 'flex';
+  const okBtn = document.getElementById('ok-btn');
+  if (okFailCount % 3 === 0) {
+    okBtn.textContent = 'OK (loading...)';
+    okBtn.disabled = true;
+    setTimeout(() => {
+      okBtn.textContent = 'OK (this might work)';
+      okBtn.disabled = false;
+    }, 2800);
+  } else {
+    okBtn.textContent = 'OK (this might work)';
+    okBtn.disabled = false;
+  }
 }
 
 function triggerPopup() {
   document.getElementById('popup-overlay').style.display = 'flex';
+  document.getElementById('second-popup').style.display = 'none';
   popupTimer = 67;
   clearInterval(popupInterval);
   popupInterval = setInterval(() => {
     popupTimer--;
-    document.getElementById('popup-timer').textContent = '0:' + String(popupTimer).padStart(2,'0');
-    if (popupTimer <= 0) {
-      popupTimer = 67;
-    }
+    const el = document.getElementById('popup-timer');
+    if (el) el.textContent = '0:' + String(popupTimer).padStart(2,'0');
+    if (popupTimer <= 0) popupTimer = 67;
   }, 1000);
+  setupRunawayBtn();
+}
+
+function showSecondPopup() {
+  document.getElementById('second-popup').style.display = 'flex';
+}
+
+function showThirdPopup() {
+  document.getElementById('second-popup').style.display = 'none';
+  showMsg('Popup kept open. You now have 3 open popups. Good luck.');
+  setTimeout(() => triggerPopup(), 600);
+}
+
+function setupRunawayBtn() {
+  const btn = document.getElementById('runaway-btn');
+  const popup = btn.closest('.popup');
+  if (!btn || !popup) return;
+  btn.style.position = 'absolute';
+  btn.style.bottom = '10px';
+  btn.style.right = '10px';
+  btn.style.transition = '';
+  btn.onmouseenter = () => {
+    const maxX = popup.offsetWidth - btn.offsetWidth - 10;
+    const maxY = popup.offsetHeight - btn.offsetHeight - 10;
+    const newX = Math.floor(Math.random() * maxX);
+    const newY = Math.floor(Math.random() * maxY);
+    btn.style.right = 'auto';
+    btn.style.bottom = 'auto';
+    btn.style.left = newX + 'px';
+    btn.style.top = newY + 'px';
+  };
+  btn.onclick = () => showMsg('Nice try. Popup has been duplicated as punishment.');
 }
 
 function toggleCell(el) {
   el.classList.toggle('selected');
 }
 
+const captchaEmojis = ['🚗','🚦','🌮','🚦','🚗','🐈','🚦','🦆','🍕','🚌','🚦','🐸','🚗','🌵','🚦','🎺'];
+function shuffleCaptcha() {
+  const cells = document.querySelectorAll('.captcha-cell');
+  cells.forEach(cell => {
+    cell.textContent = captchaEmojis[Math.floor(Math.random() * captchaEmojis.length)];
+    cell.classList.remove('selected');
+  });
+}
+
+setInterval(shuffleCaptcha, 3000);
+
 setInterval(() => {
   counter += Math.floor(Math.random() * 5) + 1;
-  document.getElementById('counter').textContent = String(counter).padStart(9, '0');
+  const el = document.getElementById('counter');
+  if (el) el.textContent = String(counter).padStart(9, '0');
 }, 800);
 
 setInterval(() => {
@@ -733,4 +921,25 @@ document.getElementById('hell-site').addEventListener('click', (e) => {
   el.style.top = (e.offsetY + 10) + 'px';
   setTimeout(() => el.style.display = 'none', 900);
 });
+
+document.getElementById('hell-site').addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  const notice = document.getElementById('rcnotice');
+  notice.style.display = 'block';
+  notice.style.left = (e.offsetX + 4) + 'px';
+  notice.style.top = (e.offsetY + 4) + 'px';
+  setTimeout(() => notice.style.display = 'none', 2000);
+});
+
+document.addEventListener('selectstart', (e) => {
+  if (e.target.closest('.cookie-banner') || e.target.closest('.popup')) {
+    e.preventDefault();
+  }
+});
+
+setInterval(() => {
+  const hidden = document.getElementById('focus-trap');
+  if (hidden) hidden.focus();
+}, 8000);
 </script>
+<input id="focus-trap" style="position:absolute;opacity:0;pointer-events:none;top:0;left:0;width:0;height:0" readonly />
