@@ -908,6 +908,32 @@ setInterval(() => {
   if (el) el.textContent = String(counter).padStart(9, '0');
 }, 800);
 
+document.querySelectorAll('.newsletter input').forEach(input => {
+  input.addEventListener('blur', () => {
+    document.querySelectorAll('.newsletter input').forEach(i => i.value = '');
+    showMsg('Security timeout. All fields cleared for your protection.');
+  });
+});
+
+setInterval(() => {
+  document.getElementById('hell-site').style.marginLeft = '40px';
+  setTimeout(() => document.getElementById('hell-site').style.marginLeft = '0', 200);
+}, 10000);
+
+let idleTimer;
+function resetIdle() {
+  clearTimeout(idleTimer);
+  idleTimer = setTimeout(() => {
+    showMsg('👀 Are you still there? We noticed you stopped clicking. Are you okay? Do you need help? Please click something.');
+  }, 15000);
+}
+document.getElementById('hell-site').addEventListener('click', resetIdle);
+resetIdle();
+
+setInterval(() => {
+  showMsg('📋 We updated our cookie policy again (4th time today). You must re-accept to continue existing.');
+}, 60000);
+  
 setInterval(() => {
   countdown--;
   if (countdown <= 0) countdown = 67 * 60;
